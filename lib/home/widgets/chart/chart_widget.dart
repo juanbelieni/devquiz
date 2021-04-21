@@ -1,7 +1,12 @@
 import 'package:devquiz/core/core.dart';
+import 'package:devquiz/shared/models/models.dart';
 import 'package:flutter/material.dart';
 
 class ChartWidget extends StatelessWidget {
+  final UserModel user;
+
+  ChartWidget({required this.user});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +20,7 @@ class ChartWidget extends StatelessWidget {
               width: 80,
               child: CircularProgressIndicator(
                 strokeWidth: 10,
-                value: 0.75,
+                value: user.score / 100,
                 backgroundColor: AppColors.chartSecondary,
                 valueColor:
                     AlwaysStoppedAnimation<Color>(AppColors.chartPrimary),
@@ -23,7 +28,7 @@ class ChartWidget extends StatelessWidget {
             ),
           ),
           Center(
-            child: Text("75%", style: AppTextStyles.heading),
+            child: Text("${user.score}%", style: AppTextStyles.heading),
           )
         ],
       ),

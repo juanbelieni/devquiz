@@ -1,3 +1,4 @@
+import 'package:devquiz/challenge/challenge_page.dart';
 import 'package:devquiz/core/core.dart';
 import 'package:devquiz/home/home_controller.dart';
 import 'package:devquiz/home/home_state.dart';
@@ -63,13 +64,28 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    padding: const EdgeInsets.only(bottom: 16),
-                    children: homeController.quizzes!
-                        .map((quiz) => QuizCardWidget(quiz: quiz))
-                        .toList()),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  padding: const EdgeInsets.only(bottom: 16),
+                  children: homeController.quizzes!
+                      .map(
+                        (quiz) => QuizCardWidget(
+                          quiz: quiz,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChallengePage(
+                                  questions: quiz.questions,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           ],

@@ -1,11 +1,21 @@
 import 'package:devquiz/challenge/widgets/answer/answer_widget.dart';
 import 'package:devquiz/core/app_text_styles.dart';
+import 'package:devquiz/shared/models/models.dart';
 import 'package:flutter/material.dart';
 
-class QuizWidget extends StatelessWidget {
-  final String title;
+class QuizWidget extends StatefulWidget {
+  final QuestionModel question;
+  final VoidCallback onAnswer;
+  const QuizWidget({required this.question, required this.onAnswer});
 
-  const QuizWidget({Key? key, required this.title}) : super(key: key);
+  @override
+  _QuizWidgetState createState() => _QuizWidgetState();
+}
+
+class _QuizWidgetState extends State<QuizWidget> {
+  int? selectedAnswer;
+
+  List<AnswerModel> get answers => widget.question.answers;
 
   @override
   Widget build(BuildContext context) {
@@ -14,30 +24,27 @@ class QuizWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            title,
+            widget.question.title,
             style: AppTextStyles.heading,
           ),
           SizedBox(
             height: 24,
           ),
-          AnswerWidget(
-            title:
-                "Teste de resposta do quiz quiz quiz quiz quiz quiz quiz quiz quiz",
-            isRight: false,
-            isSelected: false,
-          ),
-          AnswerWidget(
-            title:
-                "Teste de resposta do quiz quiz quiz quiz quiz quiz quiz quiz quiz",
-            isRight: false,
-            isSelected: true,
-          ),
-          AnswerWidget(
-            title:
-                "Teste de resposta do quiz quiz quiz quiz quiz quiz quiz quiz quiz",
-            isRight: true,
-            isSelected: true,
-          )
+          for (int i = 0; i < answers.length; i++)
+            AnswerWidget(
+              answer: answers[i],
+              isSelected: selectedAnswer == i,
+              onTap: () {
+                if (selectedAnswer == null) {
+                  setState(() {
+                    selectedAnswer = i;
+                  });
+                  Future.delayed(Duration(seconds: 1)).then((value) {
+                    widget.onAnswer();
+                  });
+                }
+              },
+            )
         ],
       ),
     );

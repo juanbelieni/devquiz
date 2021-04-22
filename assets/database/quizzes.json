@@ -8,19 +8,19 @@
       {
         "title": "Está curtindo o Flutter?",
         "answers": [
-          { "title": "Sim" },
+          { "title": "Sim", "isRight": true },
           { "title": "Não" },
           { "title": "Talvez" },
           { "title": "Não sei responder" }
         ]
       },
       {
-        "title": "Está curtindo o Flutter?",
+        "title": "Qual a linguagem utilizada no Flutter?",
         "answers": [
-          { "title": "Sim" },
-          { "title": "Não" },
-          { "title": "Talvez" },
-          { "title": "Não sei responder" }
+          { "title": "Python" },
+          { "title": "JavaScript" },
+          { "title": "Dart", "isRight": true },
+          { "title": "Java" }
         ]
       }
     ]

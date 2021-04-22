@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class QuizCardWidget extends StatelessWidget {
   final QuizModel quiz;
+  final VoidCallback onTap;
 
-  const QuizCardWidget({Key? key, required this.quiz}) : super(key: key);
+  const QuizCardWidget({required this.quiz, required this.onTap});
 
   String get textProgress =>
       "${quiz.questionsAnswered}/${quiz.questions.length}";
@@ -15,7 +16,9 @@ class QuizCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           border: Border.fromBorderSide(BorderSide(color: AppColors.border)),
@@ -48,6 +51,8 @@ class QuizCardWidget extends StatelessWidget {
               ],
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
